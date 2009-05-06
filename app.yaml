@@ -1,0 +1,24 @@
+application: runeprophecy
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /remote_api
+  script: $PYTHON_LIB/google/appengine/ext/remote_api/handler.py
+  login: admin
+
+- url: /css
+  static_dir: css
+  
+- url: /img
+  static_dir: images
+  
+- url: /js
+  static_dir: js
+
+- url: /populate|/get_god_keys|/update_data
+  script: populatedata.py
+  
+- url: /.*
+  script: index.py

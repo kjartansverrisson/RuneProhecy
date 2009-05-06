@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<title>Primrun.is - Víkingar</title>
+	<link rel="stylesheet" type="text/css" media="screen, screen" href="/css/screen.css" />
+	<link rel="start" href="/" title="Forsíða" />
+
+	<script type="text/javascript" src="/js/utilities.js"></script>
+	<script language="JavaScript">
+	function Validate () {
+		var str = "";
+		var doLoop = true;
+		var i = 0;
+		var error = false;
+		var linenumber = 1;
+		while (doLoop) {
+			//alert(document.form_days.elements[i].name);
+			intMessage = linenumber;
+			if ((document.form_days.elements[i].value == "") || (document.form_days.elements[i] == null)) {
+				str = str + "Line: " + intMessage + " Please type full name\n";
+				error = true;
+			}
+			if (document.form_days.elements[i].name.substring(0,9) == "confirmed") {
+				if(document.form_days.elements[i].checked == false){
+					str = str + "Line: " + intMessage + " Check the confirmation field\n";
+					error = true;
+				}
+				linenumber++;
+			}
+			if(document.form_days.elements[i].name=="submit") { 
+				doLoop = false; 
+			}
+			i++;
+		}
+		if (error == true) {
+			alert(str);
+			return false;
+		} else {
+			return;   		  
+		}
+	}
+	</script>
+</head>
+
+<body onload="hideAllPages(); show('docNo0');">
+	<div class="bodywrap">
+
+		<div class="langnav">
+			<ul>
+				<li><a href="/?lang_id=en"><img src="/img/english.gif" alt="English language" /></a></li>
+				<li><a href="/?lang_id=is"><img src="/img/icelandic.gif" alt="Icelandic language" /></a></li>
+				<li><a href="/?lang_id=dk"><img src="/img/danish.gif" alt="Danish language" /></a></li>
+			</ul>
+		</div> 
+
+		<div class="maincontent">
+			{% block content %}
+			Main Page Content Here
+			{% endblock %}
+		</div>
+	</div>
+</body>
+</html>

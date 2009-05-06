@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	- {{page_data}}
+{% endblock %}
+
+{% block content %}
+	<p>{{strings.page_one_text}}.</p>
+	<form name="number_of_names_form" method="get" action="/step/1">
+		<p>
+			<label for="fi1" class="fi_label">{{strings.page_one_form_text}}</label>
+			<select id="fi7" name="lines" class="select digit">
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+			</select>
+		</p>
+		<input type="hidden" name="lang_id" value="{{locale}}" />
+		<input class="button" type="submit" value="{{strings.page_one_button_next}}" />
+	</form>
+{% endblock %}

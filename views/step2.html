@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	- {{page_data}}
+{% endblock %}
+
+{% block content %}
+<div class="orderdocs">
+	<form action="/step/3" method="post">
+		<input type="hidden" name="number_of_documents" value="{{lines}}" />
+		<input type="submit" class="button2" name="submit" value="{{strings.step2_button_print}}" /><br/><br/>
+		<input type="button" class="button2" name="clear" value="{{strings.step2_button_start_over}}" onClick="javascript:window.open('/?lang_id={{locale}}')" /><br/><br/>
+		{% for day in days %}
+		<input type="hidden" name="day_{{forloop.counter0}}" value="{{day.day}}" />
+		<input type="hidden" name="nam_{{forloop.counter0}}" value="{{day.name}}" />
+		<input type="hidden" name="lang_{{forloop.counter0}}" value="{{day.languageid}}" />
+		<input type="hidden" name="lang_id" value="{{locale}}" />
+		
+		{% ifequal forloop.counter 1 %}
+		<input type="button" id="pagebutton0" class="button2" name="Page0" value="{{strings.step2_button_page_one}}" onClick="javascript:hideAllPages(); javascript:show('docNo0');" onMouseOver="this.style.cursor='hand';"/><br/><br/>
+		{% endifequal %}
+		{% ifequal forloop.counter 2 %}		
+		<input type="button" id="pagebutton1" class="button2" name="Page1" value="{{strings.step2_button_page_two}}" onClick="javascript:hideAllPages(); javascript:show('docNo1');" onMouseOver="this.style.cursor='hand';"/><br/><br/>
+		{% endifequal %}
+		{% ifequal forloop.counter 3 %}		
+		<input type="button" id="pagebutton2" class="button2" name="Page2" value="{{strings.step2_button_page_three}}" onClick="javascript:hideAllPages(); javascript:show('docNo2');" onMouseOver="this.style.cursor='hand';"/><br/><br/>
+		{% endifequal %}
+		{% endfor %}
+		
+
+		
+	</form>
+</div>
+
+<div class="rolling_background">
+	{% for day in days %}
+
+	<div class="pagebody" id="docNo{{forloop.counter0}}" >
+		<div class="wrapper" id="pagebody">
+
+			<div class="article box">
+				<div class="content">
+					<div class="imgbox box">
+						<div class="content">
+							<img src="/img/web/ed_baldur.jpg{{godimage}}" alt="Mánaðarrúnin - " />
+							<div class="imgcontent">
+								<div class="merki">{{day.rune_title}}</div>
+								<div class="dagur">{{day.calendar_day}}.{{day.calendar_month}}</div>
+								<div class="gamlidagur">{{day.rune_subtitle}}</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="imgbox box">
+						<div class="content">
+							<img src="/img/runes/web/{{day.day}}.jpg" alt="Afmælisrúnin - {{runetitle}}" />
+							<div class="imgcontent">
+								<div class="nafn">{{day.name}}</div>
+							</div>
+						</div>
+					</div>
+
+					<h1><span class="rune">{{day.rune_title}}</span><br/>{{day.rune_subtitle}}</h1>
+					<h2 class="subtitle"></h2>
+
+					<p class="text">{{day.description}}</p>
+
+					<div class="clear">&nbsp;</div>          
+				</div>
+			</div>
+
+
+			<hr class="stream" />
+
+			<div class="clear">&nbsp;</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+
+{% endblock %}
